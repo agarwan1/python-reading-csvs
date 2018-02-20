@@ -1,19 +1,15 @@
 import os
-#import re
 import csv
+
 csvpath = os.path.join('File','employee_data1.csv')
 csvpath2 = os.path.join('File','employee_data2.csv')
+
 files = [csvpath, csvpath2]
 ofile1 = "empdata1.csv"
 ofile2 = "empdata2.csv"
 ofile = [ofile1, ofile2]
-#import csv
-# empid = []
-# firstname = []
-# lastname = []
-# dob = []
-# ssn = []
-# state = []
+
+#US states dictionary.
 us_state_abbrev = {
     'Alabama': 'AL',
     'Alaska': 'AK',
@@ -66,6 +62,7 @@ us_state_abbrev = {
     'Wisconsin': 'WI',
     'Wyoming': 'WY',
 }
+
 for csvpath in files:
     with open(csvpath, newline = '') as csvfile:
         output_file = os.path.join(ofile[files.index(csvpath)])
@@ -74,23 +71,26 @@ for csvpath in files:
             output_writer.writerow(["Employee","First Name", "Last Name","DOB", "SSN", "State"])
             csvfile.readline()
             csvreader = csv.reader(csvfile, delimiter = ',')
-            #print(csvreader)
-            #row = []
+#Format the name, date of birth, social security number and state.
             for row in csvreader:
                 empid = row[0]
                 parsename = row[1].split(" ")
                 firstname = parsename[0]
                 lastname = parsename[1]
+#Format date to mm/dd/yyyy.
                 parsedob = row[2].split("-")
                 year = parsedob[0]
                 month = parsedob[1]
                 date = parsedob[2]
                 dob = month + "/" + date + "/" + year
+#Format scoail security number.
                 parsessn = row[3].split("-")
                 ssn = parsessn[2]
                 ssn = "***-***" + ssn
+#Format state.
                 stateAbbrv = us_state_abbrev.get(row[4])
                 state = stateAbbrv
+#Print formatted csv.
                 cleaned_csv = [empid, firstname, lastname, dob, ssn, state]
                 print(cleaned_csv)
                 output_writer.writerow(cleaned_csv)
