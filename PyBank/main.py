@@ -16,7 +16,7 @@ for csvpath in files:
         output_file = os.path.join(ofile[files.index(csvpath)])
         with open(output_file,'w',newline='') as data_file:
             output_writer = csv.writer(data_file)
-            output_writer.writerow(["Date","Revenue"])
+            output_writer.writerow(["Total Months", "Total Revenue", "Average Revenue Change", "Greatest Revenue Change","Greatest Decrease Revenue Change"])
             csvfile.readline() #equivalent to next
             csvreader = csv.reader(csvfile, delimiter = ',')
             #print(csvreader)
@@ -72,5 +72,7 @@ for csvpath in files:
             print("Greatest Decrease Revenue Change: " + str(minrevchange))
             print("")
 
-
+            listtwo = [rowcnt, totalrevenue, avgrevchange, maxrevchange, minrevchange]
+            print(listtwo)
+            output_writer.writerow(listtwo)
 
