@@ -35,29 +35,36 @@ for csvpath in files:
             minrevmonth = ""
             avgrevenue = 0
             avgrevchange = 0
+			
 #Looping through rows.
             for row in csvreader:
                 month = row[0]
                 revenue = row[1]
                 rowcnt = rowcnt + 1 #This is the number of months.
                 totalrevenue = float(totalrevenue) + float(row[1])
-#I don't want to include the first row with the data. Revenue change needs to start from second month.
+				
+#Excludes first row. Revenue change needs to start from second month.
                 if rowcnt > 1:
                     revenuechange = int(revenue) - int(prevRev)
                     totalRevenueChange = totalRevenueChange + revenuechange
-#I don't want to skip the first row of data for the previous revenue.
+					
+#Does not skip the first row of data for the previous revenue.
                 prevRev = revenue
+				
 #Compare this row's revenue change against the maximum revchange. Only keep maximum revenue change.
                 if float(revenuechange) > float(maxrevchange):
                     maxrevchange = revenuechange
                     maxrevmonth = month
+					
 #Compare this row's revenue change against the minimum revchange. Only keep minimum revenue change.
                 if float(revenuechange) < float(minrevchange):
                     minrevchange = revenuechange
                     minrevmonth = month
+					
 #Calculate average revenue and average revenue change.
             avgrevenue = totalrevenue / rowcnt - 1
             avgrevchange = round((totalRevenueChange / (rowcnt - 1)), 2)
+			
 #Print the results.
             print("Financial Analysis:" )
             print("----------------------------")
